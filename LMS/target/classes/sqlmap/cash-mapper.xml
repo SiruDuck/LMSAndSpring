@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cash">
+	
+	<!-- cash ing list -->
+	<select id="cash_ing_list" resultType="cash.Cash_ingVO">
+		select * from cash_ing
+	</select>
+	
+	
+	<!-- admin 입장에서 insert (입력) 할 cash ing list-->
+	
+	<!-- update (수정) 할 cash final -->
+	
+	<!-- admin 입장에서 search (보여줄) cash final -->
+	<select id="cash_final_list" resultType="cash.Cash_finalVO">
+	SELECT c.payment_day payment_day,m.id id, m.name name,m.department_name department_name,m.info_name info_name,c.cash_name cash_name,c.description description,c.price price, price * nvl(tax_A,1) tax_a, price * nvl(tax_B,1) tax_b, price * nvl(tax_C,1) tax_c, price * nvl(tax_D,1) tax_d , 
+            price-(price * nvl(tax_A,1)+ price * nvl(tax_B,1)+ price * nvl(tax_C,1)+ price * nvl(tax_D,1)) nowprice
+	FROM cash_final c INNER JOIN member m
+	on c.id = m.id
+	order by payment_day, name
+		
+	</select>
+	
+	<!-- 필터 전체 리스트 조회 -->
+	<select id="cash_final_list_filter" resultType="cash.Cash_finalVO">
+	SELECT c.payment_day payment_day,m.id id, m.name name,m.department_name department_name,m.info_name info_name,c.cash_name cash_name,c.description description,c.price price, price * nvl(tax_A,1) tax_a, price * nvl(tax_B,1) tax_b, price * nvl(tax_C,1) tax_c, price * nvl(tax_D,1) tax_d , 
+            price-(price * nvl(tax_A,1)+ price * nvl(tax_B,1)+ price * nvl(tax_C,1)+ price * nvl(tax_D,1)) nowprice
+FROM cash_final c INNER JOIN member m
+on c.id = m.id
+
+<if test='cash_year != -1'>
+	where to_char(payment_day,'yyyy') = #{cash_year}
+	<if test='cash_month != -1'>
+		and to_char(payment_day,'mm') = trim(to_char(#{cash_month}, '09'))
+	</if>
+</if>
+<if test='cash_year == -1'>
+	<if test='cash_month != -1'>
+		where to_char(payment_day,'mm') = trim(to_char(#{cash_month}, '09'))
+	</if>
+</if>
+order by payment_day, name
+	
+	</select>
+	
+	<!-- admin입장에서 보여주는 급여(final) 만 조회 리스트 -->
+<select id="admin_salary_list" resultType="cash.Cash_finalVO">
+	SELECT c.PAYMENT_DAY payment_day, M.id id, m.name name , m.DEPARTMENT_NAME department_name, m.INFO_NAME info_name,
+	            m.start_date start_date, c.description description,
+	            C.price price , C.price * nvl(tax_A,1) tax_a, 
+	            C.price * nvl(tax_B,1) tax_b, C.price * nvl(tax_C,1) tax_c,
+	            C.price * nvl(tax_D,1) tax_d , 
+	            price-(price * nvl(tax_A,1)+ price * nvl(tax_B,1)+ price * nvl(tax_C,1)+ price * nvl(tax_D,1)) nowprice
+	FROM CASH_final C LEFT OUTER JOIN  MEMBER M 
+	ON M.id = C.id
+	WHERE c.cash_name LIKE '%급여%'
+	ORDER BY m.id , payment_day
+</select>	
+	
+	<!-- admin : 등록금(final) 조회 리스트  -->
+<select id="admin_tuition_list" resultType="cash.Cash_finalVO">
+SELECT c.PAYMENT_DAY payment_day, M.id id, m.name name, m.DEPARTMENT_NAME department_name,m.grade grade, m.state state,
+            m.start_date start_date, m.end_date end_date, c.description description,  
+            C.price price 
+FROM CASH_ING C RIGHT OUTER JOIN  MEMBER M 
+ON M.id = C.id
+WHERE c.cash_name LIKE '%등록금%' OR c.cash_name IS NULL
+ORDER BY m.id
+
+</select>	
+	
+	<!-- admin : 장학금(final) 조회 리스트 -->
+<select id="admin_scholarship_list" resultType="cash.Cash_finalVO">
+SELECT M.id id, m.name name , m.DEPARTMENT_NAME department_name,m.grade grade, m.state state,
+            m.start_date start_date, m.end_date end_date, c.cash_name cash_name, c.description description, c.PAYMENT_DAY payment_day,
+            C.price price 
+FROM cash_final C RIGHT OUTER JOIN  MEMBER M 
+ON M.id = C.id
+WHERE m.INFO_NAME='학생' and c.cash_name ='장학금'
+ORDER BY m.id
+
+</select>	
+	
+	
+	<!-- id<교수> 입장에서 search (보여줄) cash final 월급받았던 내역 (그런데 이제 세금을 뗀...ㅋ) -->
+	
+	<!-- id<학생> 입장에서 search (보여줄) 등록금 납부 내역 cash final -->
+	
+	<!-- id<학생 > 입장에서 search (보여줄) 등록금 낼 내역 cash ing -->	
+	
+	
+	
+	
+	
+	
+	
+</mapper>
