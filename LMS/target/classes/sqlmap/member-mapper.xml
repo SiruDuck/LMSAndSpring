@@ -79,11 +79,12 @@ select count(id) from member where id = #{id}
 	where equipment like '%'||#{equipment}||'%'
 </select>
  
+ <!-- 비품 추가 -->
 <insert id='equipment_insert'>
 	insert into equipment values(#{equipment},#{equipment_num},#{buy_day},#{situation ,jdbcType=VARCHAR},#{price})
 </insert>
 
- 
+ <!-- 비품 수정 -->
  <update id="equipment_modify">
 	update equipment set equipment 	   = #{equipment},
 						 equipment_num = #{equipment_num},
@@ -93,6 +94,7 @@ select count(id) from member where id = #{id}
 	where equipment = #{equipment} 					 
  </update>
  
+ <!-- 비품 삭제 -->
  <delete id="equipment_delete">
  	delete from equipment where equipment = #{equipment} 
  </delete>
