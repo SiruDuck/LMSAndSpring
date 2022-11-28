@@ -2,15 +2,21 @@ package com.yongmoon.lms;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.google.gson.Gson;
 
 import member.MemberVO;
 import timetable.DepartmentVO;
@@ -19,15 +25,12 @@ import timetable.TimeTableDAO;
 import timetable.TimeTableService;
 import timetable.TimeTableVO;
 
-@Controller
+@RestController
 public class TimeTableController {
 	@Autowired private TimeTableService service;
 	@Autowired private TimeTableDAO dao;
+	@Autowired @Qualifier("ymu") SqlSession sql;
 	
-	@RequestMapping("/info.tt")
-	public String myInfoView() {
-		return "myInfo";
-	}
 	
 	@RequestMapping("/spare.tt")
 	public String spareTimeTable(Model model, HttpSession session, EnrolmentVO enrol_vo) {
@@ -118,4 +121,25 @@ public class TimeTableController {
 		
 	}
 	
+	
+	
+	
+	@RequestMapping(value = "/list.at", produces = "text/html; charset=utf-8")
+	public String list(String id) {
+		System.out.println("수강신청");
+		HashMap<String, String>map = new HashMap<String, String>();
+		map.put("id", id);
+		return new Gson().toJson(sql.selectList("time.regist",map));
+	}// 안드로이드 수강신청 리스트
+	
+	@RequestMapping(value = "/detail.at", produces = "text/html; charset=utf-8")
+	public void detail(String lecture_num) {
+		return ;
+	}
+	
+	@RequestMapping(value = "/delete.at", produces = "text/html; charset=utf-8")
+	public void delete(String id) {
+		System.out.println("삭제" + id);
+		return ;
+	}
 }
