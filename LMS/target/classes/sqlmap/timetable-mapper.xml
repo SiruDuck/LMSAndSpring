@@ -64,9 +64,5 @@ order by l.lecture_num
 	delete from enrolment where id=#{id} and lecture_num = #{lucture_num} 
 </delete>
 
-<!-- 시간표 수정 -->
-<update id="update">
-	update
-</update>
 
 </mapper>
