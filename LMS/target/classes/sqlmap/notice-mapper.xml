@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="notice">
 
-	<select id="list" resultType="notice.NoticeVO">
+<!-- 	<select id="list" resultType="notice.NoticeVO">
 		select * from
 		(select rownum no, n.*, (select name from member m
 		where m.id=n.writer) name
@@ -50,10 +50,6 @@
 		where id = #{id}
 	</select>
 
-	<select id="read">
-		update notice set readcnt = readcnt + 1 where id =
-		#{id}
-	</select>
 
 
 
@@ -72,7 +68,22 @@
 			'%'|| #{keyword} || '%'
 		</if>
 
-	</sql>
+	</sql> -->
 
+<!-- 	<select id="read">
+		update notice set readcnt = readcnt + 1 where id =
+		#{id}
+	</select> -->
+	
+	<select id="and_list" resultType="notice.NoticeVO">
+		select *
+		from notice
+		order by writedate desc
+	</select>
+	
+	<delete id="delete">
+		delete from notice where id = #{id}
+	</delete>
+	
 
 </mapper>
