@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import equipment.EquipmentVO;
 
@@ -18,19 +19,20 @@ public class AndEqController {
 	//리스트 전체 출력
 	@RequestMapping(value= "/andeqlist", produces = "text/html;charset=utf-8")
 	public String eqlist (String vo) {
-		String json = new Gson().toJson(sql.selectList("member.equipment_list"));
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-mm-MM HH:mm:ss").create();
+		String json = gson.toJson(sql.selectList("member.equipment_list"));
 		return json;
 	}
 	
 	//리스트 수정요청
 	@RequestMapping(value= "/andeqmodify", produces = "text/html;charset=utf-8")
 	public void eqmodify (String vo) {
-		System.out.println("eq리스트 수정요청");
+		System.out.println("eq리스트 수정요청"+vo);
 		EquipmentVO modivo = new Gson().fromJson(vo, EquipmentVO.class);
 		if(modivo != null) {
-			System.out.println("Vo로 다시 변환");
-			sql.update("member.equipment_modify",vo);
-		}
+			sql.update("member.equipment_modify",modivo);
+			System.out.println("modify"+modivo);
+		} 
 		
 		return; 
 	}

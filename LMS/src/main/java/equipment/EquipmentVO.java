@@ -1,6 +1,6 @@
 package equipment;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class EquipmentVO {
 	private String equipment, situation;
