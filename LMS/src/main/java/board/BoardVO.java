@@ -3,7 +3,7 @@ package board;
 
 public class BoardVO {
 	private int id, readcnt;
-	private String title, content, writer,filename,	filepath, name;
+	private String title, content, writer,filename,	filepath;
 	private String writedate;
 	
 	public int getId() {
@@ -47,12 +47,6 @@ public class BoardVO {
 	}
 	public void setFilepath(String filepath) {
 		this.filepath = filepath;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
 	}
 	public String getWritedate() {
 		return writedate;
