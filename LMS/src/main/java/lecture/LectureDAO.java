@@ -24,9 +24,10 @@ public class LectureDAO  {
 	}
 
 	
-	public int lecture_insert(LectureVO vo) {
+	public LectureVO lecture_insert(LectureVO vo) {
 		
-		return sql.insert("lecture.insert", vo);
+		sql.insert("lecture.insert", vo);
+		return vo;
 	}
 
 	
