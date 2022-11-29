@@ -189,7 +189,7 @@ public class MemberController {
 
 	//////////////////////////// 안드로이드///////////////////////////////////////
 
-	@ResponseBody @RequestMapping("/andLogin")
+	@ResponseBody @RequestMapping(value ="/andLogin", produces = "text/html; charset=utf-8")
 	public String login(String id, String pw){
 		
 		MemberVO vo = service.and_login(id);
@@ -211,7 +211,7 @@ public class MemberController {
 	}
 		
 	
-	@RequestMapping("/eqmodifyScreen")
+	@RequestMapping( value ="/eqmodifyScreen", produces = "text/html; charset=utf-8")
 	public String eqmodifyScreen(Model model , String equipment) {
 			
 		return "equipment/equiment_modify";
@@ -219,7 +219,7 @@ public class MemberController {
 		
 		
 		
-	@RequestMapping(value = "/myinfo")
+	@RequestMapping(value ="/myinfo", produces = "text/html; charset=utf-8")
 	public String myinfo(HttpSession session, Model model) {
 		
 		MemberVO temp_vo = (MemberVO) session.getAttribute("loginInfo");

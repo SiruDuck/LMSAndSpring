@@ -27,42 +27,14 @@ public class LectureController {
 	@Autowired private LectureDAO dao;
 	
 
-//	//강의 목록 조회
-//	@RequestMapping(value = "/list.lec", produces = "text/html;charset=utf-8")
-//	public String lecture_list(Model model, LecturePageVO page,  HttpSession session
-//				,LectureVO vo
-//			) {
-//
-//		
-//		session.setAttribute("category", "lec");
-//		List<LectureVO> list = dao.lecture_list(vo);
-//		model.addAttribute("list", list);
-//		model.addAttribute("search", vo);
-//		//model.addAttribute("page", service.lecture_list(page)); 페이징처리하는건지..???2022/11/24:KYM
-//		
-//		return "lecture/list";
-//	}
-	
-//	//교수 내 강의 목록
-//	@RequestMapping(value= "/teacher_lec_list.lec", produces = "text/html;charset=utf-8")
-//	public String teacher_lec_list(Model model, HttpSession session, String teacher_name) {
-//		MemberVO vo = (MemberVO) session.getAttribute("loginInfo");
-//		session.setAttribute("category", "teacher_lec");
-//
-//		List<LectureVO> list = dao.teacher_lec_list(vo.getName());
-//		model.addAttribute("vo", list);
-//		
-//		return "lecture/teacher_lec_list";
-//	}
-	
 	//안드 교수 내 강의 목록
 	@RequestMapping(value= "and_teacher_lec_list.lec", produces = "text/html;charset=utf-8")
 	public String and_teacher_lec_list(HttpSession session, Model model, String vo) {
-		//MemberVO vo = (MemberVO) session.getAttribute("loginInfo");
-		System.out.println("요청들어옴"+vo);
-		LectureVO vo2 = new Gson().fromJson(vo, LectureVO.class);
-		
-		List<LectureVO> list = dao.teacher_lec_list(vo2.getName());
+		MemberVO vo1 = (MemberVO) session.getAttribute("loginInfo");
+		//LectureVO vo2 = new Gson().fromJson(vo, LectureVO.class);
+
+		//List<LectureVO> list = dao.teacher_lec_list(vo2.getName());
+		List<LectureVO> list = dao.teacher_lec_list(vo);
 		model.addAttribute("vo", list);
 		
 		return new Gson().toJson(list);
@@ -136,6 +108,14 @@ public class LectureController {
 //		
 //		return "lecture/teacher_stu";
 //	}
+	
+	//안드 교수->수강학생 조회
+	@RequestMapping(value= "/and_teacher_stu.lec", produces = "text/html;charset=utf-8")
+	public String and_teacher_stu(int lecture_num) {
+		List<LectureVO> list = dao.teacher_stu(lecture_num);
+		
+		return new Gson().toJson(list);
+	}
 	
 	
 }
