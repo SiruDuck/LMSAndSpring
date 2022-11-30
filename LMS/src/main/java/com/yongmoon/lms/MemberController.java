@@ -189,8 +189,6 @@ public class MemberController {
 
 	//////////////////////////// 안드로이드///////////////////////////////////////
 	
-
-
 	@ResponseBody @RequestMapping(value = "/andLogin", produces = "text/html;charset=utf-8")
 	public String login(String id, String pw){
 		
@@ -213,7 +211,7 @@ public class MemberController {
 	}
 		
 	
-	@RequestMapping( value ="/eqmodifyScreen", produces = "text/html; charset=utf-8")
+	@RequestMapping("/eqmodifyScreen")
 	public String eqmodifyScreen(Model model , String equipment) {
 			
 		return "equipment/equiment_modify";
@@ -221,7 +219,7 @@ public class MemberController {
 		
 		
 		
-	@RequestMapping(value ="/myinfo", produces = "text/html; charset=utf-8")
+	@RequestMapping(value = "/myinfo")
 	public String myinfo(HttpSession session, Model model) {
 		
 		MemberVO temp_vo = (MemberVO) session.getAttribute("loginInfo");
@@ -230,15 +228,6 @@ public class MemberController {
 		
 		
 		return "member/myinfo";
-	}
-	
-	//id에 대한 member데이터 가져오기.
-	@ResponseBody @RequestMapping(value ="/appmyinfo", produces = "text/html; charset=utf-8")
-	public String appmyinfo(Model model, String id) {
-		System.out.println("안드에서 데이터 가져오는 요청들어옴.");
-		String json = new Gson().toJson(sql.selectList("member.search_id_list",id));
-		
-		return json;
 	}
 
 	

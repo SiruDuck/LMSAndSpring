@@ -72,6 +72,10 @@ where l.lecture_num = #{lecture_num}
 		reception_status = #{reception_status, jdbcType=VARCHAR}, 
 		
 		capacity = #{capacity, jdbcType=VARCHAR},
+		 
+		midex = #{midex, jdbcType=VARCHAR}, 
+		
+		finalex = #{finalex, jdbcType=VARCHAR}, 
 		
 		subjectcredit = #{subjectcredit, jdbcType=VARCHAR}, 
 		

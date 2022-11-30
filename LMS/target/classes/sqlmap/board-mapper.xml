@@ -87,8 +87,7 @@
 		order by id
 		desc
 	</select>
-	
-	
+
 	<delete id="delete">
 		delete from board where id = #{id}
 	</delete>

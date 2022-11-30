@@ -66,5 +66,9 @@ order by l.lecture_num
 	delete from subjectscore where id= #{id} and lecture_num = #{lecture_num} and semesterpoint is null 
 </delete>
 
+<!-- 시간표 수정 -->
+<update id="update">
+	update
+</update>
 
 </mapper>

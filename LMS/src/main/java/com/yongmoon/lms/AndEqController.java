@@ -19,7 +19,7 @@ public class AndEqController {
 	//리스트 전체 출력
 	@RequestMapping(value= "/andeqlist", produces = "text/html;charset=utf-8")
 	public String eqlist (String vo) {
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-mm-MM HH:mm:ss").create();
 		String json = gson.toJson(sql.selectList("member.equipment_list"));
 		return json;
 	}
@@ -37,23 +37,11 @@ public class AndEqController {
 		return; 
 	}
 	
-	//리스트 삭제 요청
 	@RequestMapping(value= "/andeqdelete", produces = "text/html;charset=utf-8")
 	public void eqdel(String equipment) {
 		System.out.println("eq삭제 요청");
 		sql.delete("member.equipment_delete",equipment);
 		return;
-	}
-	
-	//리스트 추가 요청
-	@RequestMapping(value= "/andeqinsert", produces = "text/html;charset=utf-8")
-	public void eqinsert(String vo) {
-		System.out.println("비품 추가 요청"+vo);
-		EquipmentVO addvo = new Gson().fromJson(vo, EquipmentVO.class);
-		if(addvo != null) {
-			System.out.println(addvo);
-			sql.insert("member.equipment_insert",addvo);
-		}
 	}
 	
 	

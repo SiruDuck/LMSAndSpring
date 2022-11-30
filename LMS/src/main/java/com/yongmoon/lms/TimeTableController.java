@@ -5,15 +5,15 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.google.gson.Gson;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import member.MemberVO;
 import timetable.EnrolmentVO;
@@ -21,12 +21,15 @@ import timetable.TimeTableDAO;
 import timetable.TimeTableService;
 import timetable.TimeTableVO;
 
-@RestController
+@Controller
 public class TimeTableController {
 	@Autowired private TimeTableService service;
 	@Autowired private TimeTableDAO dao;
-	@Autowired @Qualifier("ymu") SqlSession sql;
 	
+	@RequestMapping("/info.tt")
+	public String myInfoView() {
+		return "myInfo";
+	}
 	
 	@RequestMapping("/spare.tt")
 	public String spareTimeTable(Model model, HttpSession session, EnrolmentVO enrol_vo) {
@@ -117,9 +120,6 @@ public class TimeTableController {
 		
 	}
 	
-	
-	
-	
 	@RequestMapping(value = "/list.at", produces = "text/html; charset=utf-8")
 	public String list(String id) {
 		System.out.println("수강신청");
@@ -151,4 +151,5 @@ public class TimeTableController {
 		System.out.println(id + "시간표");
 		return ;
 	}
+
 }
