@@ -104,7 +104,16 @@
 	<delete id="delete">
 		delete from board where id = #{id}
 	</delete>
-
+	
+	
+	<select id="update">
+		update board set title = #{title,
+		jdbcType=VARCHAR},content = #{content, jdbcType=VARCHAR},
+		filename =
+		#{filename, jdbcType=VARCHAR}, filepath = #{filepath,
+		jdbcType=VARCHAR}
+		where id = #{id}
+	</select>
 
 </mapper>
 
