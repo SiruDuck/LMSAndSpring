@@ -2,24 +2,20 @@ package com.yongmoon.lms;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
 
 import member.MemberVO;
-import timetable.DepartmentVO;
 import timetable.EnrolmentVO;
 import timetable.TimeTableDAO;
 import timetable.TimeTableService;
@@ -133,13 +129,26 @@ public class TimeTableController {
 	}// 안드로이드 수강신청 리스트
 	
 	@RequestMapping(value = "/detail.at", produces = "text/html; charset=utf-8")
-	public void detail(String lecture_num) {
+	public void detail(String id) {
+		System.out.println("상세보기");
 		return ;
 	}
 	
+	@RequestMapping(value = "/insert.at", produces = "text/html; charset=utf-8")
+	public String insert(EnrolmentVO enrol_vo, String id) {
+		System.out.println(id + "시간표에 강의 추가");
+		return new Gson().toJson(sql.insert("time.insert",enrol_vo));
+	}
+	
 	@RequestMapping(value = "/delete.at", produces = "text/html; charset=utf-8")
-	public void delete(String id) {
-		System.out.println("삭제" + id);
+	public String delete(EnrolmentVO enrol_vo, String id) {
+		System.out.println(id + "삭제");
+		return new Gson().toJson(sql.delete("time.delete",enrol_vo));
+	}
+	
+	@RequestMapping(value = "/table.at", produces = "text/html; charset=utf-8")
+	public void table_list(String id) {
+		System.out.println(id + "시간표");
 		return ;
 	}
 }
