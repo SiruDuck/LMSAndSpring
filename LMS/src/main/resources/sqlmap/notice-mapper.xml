@@ -70,10 +70,10 @@
 
 	</sql> -->
 
-<!-- 	<select id="read">
+	<update id="read">
 		update notice set readcnt = readcnt + 1 where id =
 		#{id}
-	</select> -->
+	</update>
 	
 	<select id="and_list" resultType="notice.NoticeVO">
 		select *
@@ -85,5 +85,26 @@
 		delete from notice where id = #{id}
 	</delete>
 	
-
+	
+	
+	<update id="update">
+		update notice set title = #{title,
+		jdbcType=VARCHAR},content = #{content,
+		jdbcType=VARCHAR},
+		filename =
+		#{filename, jdbcType=VARCHAR}, filepath = #{filepath,
+		jdbcType=VARCHAR}
+		where id = #{id}
+	</update>
+	
+	<insert id="insert">
+		insert into notice(title, content, writer, filename,
+		filepath)
+		values (#{title, jdbcType=VARCHAR}, #{content,
+		jdbcType=VARCHAR},
+		#{writer, jdbcType=VARCHAR}, #{filename,
+		jdbcType=VARCHAR},
+		#{filepath, jdbcType=VARCHAR})
+	</insert>
+	
 </mapper>

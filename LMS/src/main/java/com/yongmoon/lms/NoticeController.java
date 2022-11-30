@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 
+import board.BoardVO;
 import common.CommonUtility;
 import notice.NoticeDAO;
 import notice.NoticePageVO;
@@ -132,6 +133,15 @@ public class NoticeController {
 		return new Gson().toJson(list);
 	}
 	
+	@RequestMapping(value = "/andNolist", produces = "text/html;charset=utf-8")
+	public String and_list_read(int id) {
+		
+		
+		return service.notice_read(id)+"";
+	}
+	
+
+	
 	@RequestMapping(value = "/anddelete.no", produces = "text/html;charset=utf-8")
 	public String anddelete(String vo) {//변수이름 : ※URL에 담긴 정보 구분※
 		//id라는 변수에 URL에 입력 된 값을 받아서 출력해보기.
@@ -144,5 +154,31 @@ public class NoticeController {
 		return result + "";
 	}
 	
-
+	
+	@RequestMapping(value = "/andupdate.no", produces = "text/html;charset=utf-8")
+	public String update(String vo) {
+		System.out.println(vo);
+		//mapper에 각각의 필드로 나눠서 보내줘야 함.
+		NoticeVO vo2 = new Gson().fromJson(vo, NoticeVO.class);
+		if (vo2 != null) {
+			System.out.println("vo로 다시 변환이 됨");
+			service.notice_update(vo2);
+		}
+		
+		//응답화면연결
+		return new Gson().toJson(vo2);
+	}
+	
+	@RequestMapping(value = "/andinsert.no", produces = "text/html;charset=utf-8")
+	public String insert(String vo) {
+		NoticeVO temp_vo = new Gson().fromJson(vo, NoticeVO.class);
+		service.notice_insert(temp_vo);
+		
+		return new Gson().toJson(vo);
+	}
+	
+	
+	
+	
+	
 }

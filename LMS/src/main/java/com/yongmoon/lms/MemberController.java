@@ -188,8 +188,9 @@ public class MemberController {
 	}
 
 	//////////////////////////// 안드로이드///////////////////////////////////////
+	
 
-	@ResponseBody @RequestMapping("/andLogin")
+	@ResponseBody @RequestMapping(value = "/andLogin", produces = "text/html;charset=utf-8")
 	public String login(String id, String pw){
 		
 		MemberVO vo = service.and_login(id);
