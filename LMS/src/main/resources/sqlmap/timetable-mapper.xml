@@ -51,9 +51,9 @@ order by l.lecture_num
 <!-- 내 시간표 보기 -->
 <select id="timeTable_list" resultType="timetable.TimeTableVO">
 	SELECT L.LECTURE_NUM, L.LECTURE_TITLE, L.LECTURE_ROOM, L.LECTURE_TIME, L.LECTURE_DAY, l.semester
-	FROM lectures L INNER JOIN  ENROLMENT E
+	FROM lectures L INNER JOIN  subjectscore E
 	ON l.lecture_num = e.lecture_num
-	WHERE E.ID=#{id} AND l.semester = 2
+	WHERE E.ID= #{id} AND l.semester = 2
 </select>
 
 <!-- 수강신청 -->

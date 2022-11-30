@@ -147,8 +147,8 @@ public class TimeTableController {
 	}
 	
 	@RequestMapping(value = "/table.at", produces = "text/html; charset=utf-8")
-	public void table_list(String id) {
+	public String table_list(String id) {
 		System.out.println(id + "시간표");
-		return ;
+		return new Gson().toJson(sql.selectList("time.timeTable_list", id));
 	}
 }
