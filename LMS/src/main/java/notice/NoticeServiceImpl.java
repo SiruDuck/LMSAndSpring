@@ -38,4 +38,20 @@ public class NoticeServiceImpl implements NoticeService {
 		return dao.notice_delete(vo);
 	}
 
+	@Override
+	public int notice_update(NoticeVO vo) {
+		
+		return dao.notice_update(vo);
+	}
+
+	@Override
+	public int notice_insert(NoticeVO vo) {
+		return dao.notice_insert(vo);
+	}
+
+	@Override
+	public int notice_read(int id) {
+		return dao.notice_read(id);
+	}
+
 }

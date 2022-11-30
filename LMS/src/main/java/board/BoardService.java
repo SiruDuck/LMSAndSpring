@@ -26,4 +26,12 @@ public interface BoardService {
 	int board_delete(BoardVO vo);
 	int board_update(BoardVO vo);
 	
+	int board_read(int id);
+	
+	int board_insert(BoardVO vo);
+	
+	List<BoardVO> board_pop_and_list();
+	
+	List<BoardCommentVO> board_comment_list(int board_id);//댓글목록조회
+	
 }

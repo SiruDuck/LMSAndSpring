@@ -181,10 +181,31 @@ public class BoardController {
 	
 	
 	//////////////////////////////////////////안드로이드/////////////////////////////////////////////////////////////
+	
+
+	
+	
+	
 	@RequestMapping(value = "/bolist", produces = "text/html;charset=utf-8")
 	public String board_and_list() {
 		List<BoardVO> list = service.board_and_list();
 		return new Gson().toJson(list);
+	}
+	
+	
+	@RequestMapping(value = "/bopoplist", produces = "text/html;charset=utf-8")
+	public String board_pop_and_list() {
+		List<BoardVO> list = service.board_pop_and_list();
+		return new Gson().toJson(list);
+	}
+	
+	
+
+	@RequestMapping(value = "/andBolist", produces = "text/html;charset=utf-8")
+	public String and_board_list_read(int id) {
+		
+		
+		return service.board_read(id)+"";
 	}
 	
 	
@@ -213,11 +234,23 @@ public class BoardController {
 		}
 		
 		//응답화면연결
-		return new Gson().toJson("dddd");
+		return new Gson().toJson(vo2);
+	}
+	
+	@RequestMapping(value = "/andinsert.bo", produces = "text/html;charset=utf-8")
+	public String board_insert(String vo) {
+		BoardVO temp_vo = new Gson().fromJson(vo, BoardVO.class);
+		service.board_insert(temp_vo);
+		
+		return new Gson().toJson(vo);
 	}
 	
 	
-	
+	@RequestMapping(value = "/andboard.bo", produces = "text/html;charset=utf-8")
+	public String and_board_comment_list(@PathVariable int board_id) {
+		List<BoardCommentVO> list = service.board_comment_list(board_id);
+		return new Gson().toJson(list);
+	}
 	
 	
 }
