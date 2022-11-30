@@ -6,10 +6,17 @@ public class TimeTableVO {
 	private String lecture_title, syllabus, teacher_name, semester, sortation, lecture_room, lecture_year, lecture_time, enrolment, reception_status, capacity, midex, finalex,
 					subjectcredit, state, book, lecture_day;
 	private int lecture_num , check_flag , check_cnt;
+	private int lecture_apply; /*수강신청 여부(수강생입장)*/
 
 	
 	
 	
+	public int getLecture_apply() {
+		return lecture_apply;
+	}
+	public void setLecture_apply(int lecture_apply) {
+		this.lecture_apply = lecture_apply;
+	}
 	public int getCheck_flag() {
 		return check_flag;
 	}

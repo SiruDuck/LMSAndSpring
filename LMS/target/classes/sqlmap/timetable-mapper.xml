@@ -4,22 +4,24 @@
 
 <!-- 수강신청 리스트 조회 2022/11/24:kym-->
 <select id="regist" resultType="timetable.TimeTableVO">
-
-	select  CASE WHEN S.SEMESTERPOINT  <![CDATA[ >  ]]> 0 THEN 1 
-             WHEN e.cnt  <![CDATA[ >  ]]> 0 THEN 2 
-             WHEN e_grp.cnt  <![CDATA[ >  ]]> 40 THEN 3 
+<![CDATA[
+   select  nvl2(s.lecture_num, 1, 0) lecture_apply /*수강신청여부*/,
+    CASE WHEN S.SEMESTERPOINT   =   0 THEN 0 
+     WHEN  S.SEMESTERPOINT   >   0 THEN 1 
+     WHEN e.cnt   >   0 THEN 2 
+     WHEN e_grp.cnt  >=   40 THEN 3 
                 
 ELSE  0 END CHECK_FLAG , nvl(e_grp.cnt,0) CHECK_CNT, l.*
 from lectures l LEFT OUTER JOIN (SELECT * FROM SUBJECTSCORE s WHERE ID =  #{id} ) s ON l.LECTURE_NUM = s.LECTURE_NUM
-                LEFT OUTER JOIN (SELECT COUNT(*) cnt ,  LECTURE_NUM FROM enrolment e WHERE ID = #{id} GROUP BY LECTURE_NUM) e ON l.LECTURE_NUM = e.LECTURE_NUM
-                LEFT OUTER JOIN (SELECT COUNT(*) cnt ,  LECTURE_NUM FROM enrolment e  GROUP BY LECTURE_NUM) e_grp ON l.LECTURE_NUM = e_grp.LECTURE_NUM
+                LEFT OUTER JOIN (SELECT COUNT(*) cnt ,  LECTURE_NUM FROM SUBJECTSCORE e WHERE ID = #{id} GROUP BY LECTURE_NUM) e ON l.LECTURE_NUM = e.LECTURE_NUM
+                LEFT OUTER JOIN (SELECT COUNT(*) cnt ,  LECTURE_NUM FROM SUBJECTSCORE e  GROUP BY LECTURE_NUM) e_grp ON l.LECTURE_NUM = e_grp.LECTURE_NUM
                 
 
-where l.semester = '2' 
+where l.semester = '2' and S.SEMESTERPOINT is null
 and lecture_title like '%'||#{lecture_title,jdbcType=VARCHAR} ||'%'
 and SORTATION like '%'||#{sortation,jdbcType=VARCHAR}  ||'%'
 order by l.lecture_num
-
+]]>
 
 </select>
 
@@ -56,12 +58,12 @@ order by l.lecture_num
 
 <!-- 수강신청 -->
 <insert id="insert">
-	insert into enrolment values (#{id}, #{lecture_num}, '')
+	insert into subjectscore values (#{lecture_num}, #{id}, '', '')
 </insert>
 
 <!-- 수강신청한 강의 삭제 -->
 <delete id="delete">
-	delete from enrolment where id=#{id} and lecture_num = #{lucture_num} 
+	delete from subjectscore where id= #{id} and lecture_num = #{lecture_num} and semesterpoint is null 
 </delete>
 
 
