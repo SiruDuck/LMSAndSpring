@@ -39,6 +39,28 @@ public class LectureController {
 		
 		return new Gson().toJson(list);
 	}
+	
+//	
+//	//학생 내 강의 목록
+//	@RequestMapping(value= "/student_lec_list.lec", produces = "text/html;charset=utf-8")
+//	public String student_lec_list(Model model, HttpSession session, String id) {
+//		MemberVO vo = (MemberVO) session.getAttribute("loginInfo");
+//		session.setAttribute("category", "student_lec");
+//
+//		List<LectureVO> list = dao.student_lec_list(vo.getId());
+//		model.addAttribute("vo", list);
+//		
+//		return "lecture/student_lec_list";
+//	}
+	//안드 학생 내 강의 목록
+	@RequestMapping(value= "/and_student_lec_list.lec", produces = "text/html;charset=utf-8")
+	public String and_stu_lec_list(String vo, HttpSession session, String id) {
+		MemberVO vo1 = (MemberVO) session.getAttribute("loginInfo");
+		List<LectureVO> list = dao.student_lec_list(id);
+		
+		
+		return new Gson().toJson(list);
+	}
 
 	
 	//안드 강의목록 조회
@@ -84,34 +106,12 @@ public class LectureController {
 		return result+"";
 	}
 	
-//	
-//	//학생 내 강의 목록
-//	@RequestMapping(value= "/student_lec_list.lec", produces = "text/html;charset=utf-8")
-//	public String student_lec_list(Model model, HttpSession session, String id) {
-//		MemberVO vo = (MemberVO) session.getAttribute("loginInfo");
-//		session.setAttribute("category", "student_lec");
-//
-//		List<LectureVO> list = dao.student_lec_list(vo.getId());
-//		model.addAttribute("vo", list);
-//		
-//		return "lecture/student_lec_list";
-//	}
-//	
-//	//교수-> 수강학생 조회
-//	@RequestMapping(value= "/teacher_stu.lec", produces = "text/html;charset=utf-8")
-//	public String teacher_stu(Model model, HttpSession session, int lecture_num) {
-//		//MemberVO vo = (MemberVO) session.getAttribute("loginInfo");
-//		List<LectureVO> list = dao.teacher_stu(lecture_num);
-//		session.setAttribute("category", "teacher_stu");
-//		model.addAttribute("vo", list);
-//		
-//		
-//		return "lecture/teacher_stu";
-//	}
+
 	
 	//안드 교수->수강학생 조회
 	@RequestMapping(value= "/and_teacher_stu.lec", produces = "text/html;charset=utf-8")
 	public String and_teacher_stu(int lecture_num) {
+		//MemberVO vo = (MemberVO) dao.teacher_stu(lecture_num);
 		List<LectureVO> list = dao.teacher_stu(lecture_num);
 		
 		return new Gson().toJson(list);
