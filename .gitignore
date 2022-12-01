@@ -1,75 +1,19 @@
-/.metadata/
+# Created by https://www.toptal.com/developers/gitignore/api/eclipse,java
+# Edit at https://www.toptal.com/developers/gitignore?templates=eclipse,java
 
-# Miscellaneous
-*.java.hsp
-*.sonarj
-*.sw*
-.DS_Store
-build.sh
-integration-repo
-ivy-cache
-argfile*
-activemq-data/
-/classes/
-LMS/target/classes/
-LMS/target/classes/board/BoardDAO.class
-LMS/target/
-/LMS/target/classes/
-/LMS/target/classes/board/BoardDAO.class
-/LMS/target/
-# Log files
-jxl.log
-jmx.log
-derby.log
+mybatis-config.xml
+log4j.xml
 
-# Gradle artifacts
-.gradle
-.gradletasknamecache
-/build
-buildSrc/build
-/spring-*/build
-/framework-bom/build
-/framework-docs/build
-/integration-tests/build
-/src/asciidoc/build
-spring-test/test-output/
-
-# Maven artifacts
-pom.xml
-target/
-
-# Eclipse artifacts, including WTP generated manifests
-bin
-.class
+lecture
+target
+pom.properties
 .classpath
-.project
-.settings
-.springBeans
-spring-*/src/main/java/META-INF/MANIFEST.MF
-
-# IDEA artifacts and output dirs
-*.iml
-*.ipr
-*.iws
-.idea
-out
-test-output
-atlassian-ide-plugin.xml
-
-# VS Code
-.vscode/
-LMS/target/m2e-wtp/web-resources/META-INF/maven/com.yongmoon/lms/pom.properties
-LMS/target/m2e-wtp/web-resources/META-INF/maven/com.yongmoon/lms/pom.properties
-LMS/target/m2e-wtp/web-resources/META-INF/maven/com.yongmoon/lms/pom.properties
-LMS/target/m2e-wtp/web-resources/META-INF/maven/com.yongmoon/lms/pom.properties
-*.properties
-
-
-# Created by https://www.toptal.com/developers/gitignore/api/java,eclipse
-# Edit at https://www.toptal.com/developers/gitignore?templates=java,eclipse
+MANIFEST.MF
 
 ### Eclipse ###
 .metadata
+LMS/target/
+lms/target/
 bin/
 tmp/
 *.tmp
@@ -134,6 +78,12 @@ local.properties
 # Spring Boot Tooling
 .sts4-cache/
 
+# Eclipse Core
+.project
+
+# IDT-specific (Eclipse Java Development Tools)
+.classpath
+
 ### Java ###
 # Compiled class file
 *.class
@@ -158,8 +108,5 @@ local.properties
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
-replay_pid*
 
-# End of https://www.toptal.com/developers/gitignore/api/java,eclipse
-*.class
-LMS/target/classes/board/
+# End of https://www.toptal.com/developers/gitignore/api/eclipse,java
