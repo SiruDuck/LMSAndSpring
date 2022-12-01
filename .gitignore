@@ -162,16 +162,4 @@ replay_pid*
 
 # End of https://www.toptal.com/developers/gitignore/api/java,eclipse
 *.class
-LMS/target/classes/board/BoardDAO.class
-LMS/target/classes/board/BoardServiceImpl.class
-LMS/target/classes/com/yongmoon/lms/BoardController.class
-LMS/target/classes/com/yongmoon/lms/LectureController.class
-LMS/target/classes/com/yongmoon/lms/MemberController.class
-LMS/target/classes/com/yongmoon/lms/NoticeController.class
-LMS/target/classes/com/yongmoon/lms/ScoreController.class
-LMS/target/classes/com/yongmoon/lms/TimeTableController.class
-LMS/target/classes/common/CommonUtility.class
-LMS/target/classes/lecture/LectureDAO.class
-LMS/target/classes/notice/NoticeDAO.class
-LMS/target/classes/notice/NoticeService.class
-LMS/target/classes/notice/NoticeServiceImpl.class
+LMS/target/classes/board/
