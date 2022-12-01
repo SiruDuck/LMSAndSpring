@@ -36,9 +36,8 @@ public class ScoreController {
 	//안드 학생 성적 평균 조회
 	@RequestMapping(value= "avg_teacher_and.sc", produces = "text/html;charset=utf-8")
 	public String avg_teacher_and(String id) {
-		ScoreVO list = dao.avg_teacher_and(id);
-		String avg = list.getAvg_subject() +"";
-		return avg;
+		List<ScoreVO> list = dao.avg_teacher_subject(id);
+		return new Gson().toJson(list);
 	}
 	
 	
