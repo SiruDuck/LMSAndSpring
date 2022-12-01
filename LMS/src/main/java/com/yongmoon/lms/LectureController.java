@@ -31,9 +31,7 @@ public class LectureController {
 	@RequestMapping(value= "and_teacher_lec_list.lec", produces = "text/html;charset=utf-8")
 	public String and_teacher_lec_list(HttpSession session, Model model, String vo) {
 		MemberVO vo1 = (MemberVO) session.getAttribute("loginInfo");
-		//LectureVO vo2 = new Gson().fromJson(vo, LectureVO.class);
-
-		//List<LectureVO> list = dao.teacher_lec_list(vo2.getName());
+		
 		List<LectureVO> list = dao.teacher_lec_list(vo);
 		model.addAttribute("vo", list);
 		
