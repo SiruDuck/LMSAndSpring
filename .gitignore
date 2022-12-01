@@ -11,7 +11,12 @@ ivy-cache
 argfile*
 activemq-data/
 /classes/
-
+LMS/target/classes/
+LMS/target/classes/board/BoardDAO.class
+LMS/target/
+/LMS/target/classes/
+/LMS/target/classes/board/BoardDAO.class
+/LMS/target/
 # Log files
 jxl.log
 jmx.log
@@ -156,4 +161,3 @@ hs_err_pid*
 replay_pid*
 
 # End of https://www.toptal.com/developers/gitignore/api/java,eclipse
-LMS/target/classes/
