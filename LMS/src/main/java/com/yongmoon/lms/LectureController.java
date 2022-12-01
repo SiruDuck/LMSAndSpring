@@ -17,7 +17,6 @@ import com.google.gson.Gson;
 
 import lecture.LectureDAO;
 import lecture.LecturePageVO;
-import lecture.LectureServiceImpl;
 import lecture.LectureVO;
 import member.MemberVO;
 
@@ -79,14 +78,14 @@ public class LectureController {
 		return new Gson().toJson(vo);
 	}
 	
-	//안드 강의 개설
-	@RequestMapping(value = "andinsert.lec", produces = "text/html;charset=utf-8")
-	public String AndLecture_insert(LectureVO vo) {
-		vo = dao.lecture_insert(vo);
-		
-		
-		return "";
-	}
+//	//안드 강의 개설
+//	@RequestMapping(value = "andinsert.lec", produces = "text/html;charset=utf-8")
+//	public String AndLecture_insert(LectureVO vo) {
+//		vo = dao.lecture_insert(vo);
+//		
+//		
+//		return "";
+//	}
 	
 	
 	//안드 정보 수정
@@ -98,14 +97,14 @@ public class LectureController {
 		return new Gson().toJson(dto);
 	}
 	
-	//안드 강의 정보 삭제
-	@RequestMapping(value= "/anddelete.lec" , produces = "text/html;charset=utf-8")
-	public String delete(int lecture_num) {
-		int result = dao.lecture_delete(lecture_num);
-		
-		
-		return result+"";
-	}
+//	//안드 강의 정보 삭제
+//	@RequestMapping(value= "/anddelete.lec" , produces = "text/html;charset=utf-8")
+//	public String delete(int lecture_num) {
+//		int result = dao.lecture_delete(lecture_num);
+//		
+//		
+//		return result+"";
+//	}
 	
 
 	

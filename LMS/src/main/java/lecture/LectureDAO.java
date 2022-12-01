@@ -12,7 +12,6 @@ public class LectureDAO  {
 	@Autowired @Qualifier("ymu") private SqlSession sql;
 	
 	
-	
 	public List<LectureVO> lecture_list() {
 		
 		return sql.selectList("lecture.list");
@@ -24,22 +23,20 @@ public class LectureDAO  {
 	}
 
 	
-	public LectureVO lecture_insert(LectureVO vo) {
+	public int lecture_insert(LectureVO vo) {
 		
-		sql.insert("lecture.insert", vo);
-		return vo;
+		return sql.insert("lecture.insert", vo);
 	}
 
 	
-	public void lecture_update(LectureVO dto) {
-		
-		sql.update("lecture.update", dto);
+	public void lecture_update(LectureVO vo) {
+		sql.update("lecture.update", vo);
 		
 	}
 
 	
-	public int lecture_delete(int lecture_num) {
-		return sql.delete("lecture.delete", lecture_num);
+	public void lecture_delete(int lecture_num) {
+		sql.delete("lecture.delete", lecture_num);
 		
 	}
 
@@ -49,12 +46,7 @@ public class LectureDAO  {
 	}
 
 	
-	public LecturePageVO lecture_list(LecturePageVO page) {
-		page.setTotalList(sql.selectOne("lecture.total", page));
-		page.setList(sql.selectList("lecture.list", page));
-		return page;
-	}
-
+	
 	
 	public List<LectureVO> teacher_lec_list(String teacher_name) {
 		

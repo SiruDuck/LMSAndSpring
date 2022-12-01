@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.ui.Model;
@@ -21,10 +22,11 @@ import timetable.TimeTableDAO;
 import timetable.TimeTableService;
 import timetable.TimeTableVO;
 
-@Controller
+@RestController
 public class TimeTableController {
 	@Autowired private TimeTableService service;
 	@Autowired private TimeTableDAO dao;
+	@Autowired private SqlSession sql;
 	
 	@RequestMapping("/info.tt")
 	public String myInfoView() {
