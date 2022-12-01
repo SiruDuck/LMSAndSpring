@@ -35,6 +35,7 @@ target/
 
 # Eclipse artifacts, including WTP generated manifests
 bin
+.class
 .classpath
 .project
 .settings
