@@ -10,7 +10,7 @@ integration-repo
 ivy-cache
 argfile*
 activemq-data/
-classes/
+/classes/
 
 # Log files
 jxl.log
