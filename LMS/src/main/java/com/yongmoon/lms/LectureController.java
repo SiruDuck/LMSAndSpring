@@ -17,7 +17,6 @@ import com.google.gson.Gson;
 
 import lecture.LectureDAO;
 import lecture.LecturePageVO;
-import lecture.LectureServiceImpl;
 import lecture.LectureVO;
 import member.MemberVO;
 
