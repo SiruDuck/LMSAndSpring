@@ -31,9 +31,7 @@ public class LectureController {
 	@RequestMapping(value= "and_teacher_lec_list.lec", produces = "text/html;charset=utf-8")
 	public String and_teacher_lec_list(HttpSession session, Model model, String vo) {
 		MemberVO vo1 = (MemberVO) session.getAttribute("loginInfo");
-		//LectureVO vo2 = new Gson().fromJson(vo, LectureVO.class);
-
-		//List<LectureVO> list = dao.teacher_lec_list(vo2.getName());
+		
 		List<LectureVO> list = dao.teacher_lec_list(vo);
 		model.addAttribute("vo", list);
 		
@@ -78,14 +76,14 @@ public class LectureController {
 		return new Gson().toJson(vo);
 	}
 	
-	//안드 강의 개설
-	@RequestMapping(value = "andinsert.lec", produces = "text/html;charset=utf-8")
-	public String AndLecture_insert(LectureVO vo) {
-		vo = dao.lecture_insert(vo);
-		
-		
-		return "";
-	}
+//	//안드 강의 개설
+//	@RequestMapping(value = "andinsert.lec", produces = "text/html;charset=utf-8")
+//	public String AndLecture_insert(LectureVO vo) {
+//		vo = dao.lecture_insert(vo);
+//		
+//		
+//		return "";
+//	}
 	
 	
 	//안드 정보 수정
@@ -97,14 +95,14 @@ public class LectureController {
 		return new Gson().toJson(dto);
 	}
 	
-	//안드 강의 정보 삭제
-	@RequestMapping(value= "/anddelete.lec" , produces = "text/html;charset=utf-8")
-	public String delete(int lecture_num) {
-		int result = dao.lecture_delete(lecture_num);
-		
-		
-		return result+"";
-	}
+//	//안드 강의 정보 삭제
+//	@RequestMapping(value= "/anddelete.lec" , produces = "text/html;charset=utf-8")
+//	public String delete(int lecture_num) {
+//		int result = dao.lecture_delete(lecture_num);
+//		
+//		
+//		return result+"";
+//	}
 	
 
 	
