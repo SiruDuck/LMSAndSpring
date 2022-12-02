@@ -2,7 +2,6 @@
 /.metadata/
 /.recommenders/
 .classpath
-.project
 .settings/
 tmp/
 *.bak
