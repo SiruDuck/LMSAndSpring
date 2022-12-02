@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="member">
+
+
+<!-- 전체 멤버리스트 조회 -->
+<select id='member_list' resultType='member.MemberVO'>
+select * from member
+</select>
+
+<!-- 특정 학과 멤버리스트 조회 -->
+<select id='info_list' resultType='member.MemberVO'>
+select DISTINCT * from member
+where nvl(info_name, 0 ) = #{info_name}
+order by id
+</select>
+
+<!-- 특정 학과 멤버리스트 조회 -->
+<select id='department_list' resultType='member.MemberVO'>
+select * from member
+where nvl(department_id, 0 ) = #{department_id}
+order by member
+</select>
+
+
+<!-- info name, info code 조회 -->
+<select id='info' resultType='member.MemberVO'>
+select DISTINCT info_name, info_cd
+from member
+</select>
+
+<!-- name로 검색 리스트 -->
+<select id="search_name_list" resultType="member.MemberVO">
+select *
+from member
+where name like '%'||#{name}||'%'
+
+</select>
+
+<!-- id로 검색 리스트 -->
+<select id="search_id_list" resultType="member.MemberVO">
+select *
+from member
+where id like '%'||#{id}||'%'
+
+</select>
+
+<!-- 로그인처리 -->
+<select id='login' resultType='member.MemberVO'>
+select * from member where id = #{id} and pw = #{pw}
+</select>
+
+<!-- 회원가입처리 -->
+<insert id='join'>
+insert into member(	id, pw, name, gender, birth, phone, email, post, addr, grade, start_date,
+					end_date, state, department_id, department_name, info_cd, info_name, profile )
+values ( #{id}, #{pw}, #{name}, #{gender}, #{birth}, #{phone}, #{email}, #{post}, #{addr}
+		, #{grade, jdbcType=VARCHAR}, #{start_date}, #{end_date, jdbcType=VARCHAR}, #{state}
+		, #{department_id, jdbcType=VARCHAR}, #{department_name, jdbcType=VARCHAR}
+		, #{info_cd, jdbcType=VARCHAR}, #{info_name, jdbcType=VARCHAR}, #{profile, jdbcType=VARCHAR})
+</insert>
+
+
+ <!-- 아이디존재여부 확인 -->
+<select id='id_check' resultType='integer'>
+select count(id) from member where id = #{id}
+</select>
+ 
+ <!-- 비품 리스트 -->
+ <select id='equipment_list' resultType='equipment.EquipmentVO'>
+	select * 
+	from equipment
+</select>
+ 
+  <!-- 비품 이름으로 검색 -->
+ <select id='equipment_search_name_list' resultType='equipment.EquipmentVO'>
+	select * 
+	from equipment
+	where equipment like '%'||#{equipment}||'%'
+</select>
+ 
+ <!-- 비품 추가 -->
+<insert id='equipment_insert'>
+	insert into equipment values(#{equipment},#{equipment_num},#{buy_day},#{situation ,jdbcType=VARCHAR},#{price})
+</insert>
+
+ <!-- 비품 수정 -->
+ <update id="equipment_modify">
+	update equipment set equipment 	   = #{equipment},
+						 equipment_num = #{equipment_num},
+						 buy_day 	   = #{buy_day},
+						 situation 	   = #{situation ,jdbcType=VARCHAR},
+						 price 		   = #{price} 	
+	where equipment = #{equipment} 					 
+ </update>
+ 
+ <!-- 비품 삭제 -->
+ <delete id="equipment_delete">
+ 	delete from equipment where equipment = #{equipment} 
+ </delete>
+
+
+
+ 
+ 
+<!-- 내 정보 조회 -->
+<select id="viewMember" resultType='member.MemberVO'>
+	select *
+	from member
+	where id = #{id}
+</select>
+
+
+
+
+
+
+
+<!-- /////////////////////안드로그인/////////////////////////////////// -->
+
+<!-- 로그인처리 -->
+<select id='andlogin' resultType='member.MemberVO'>
+select * from member where id = #{id}
+</select>
+
+<select id='andloginInfo' resultType='member.MemberVO'>
+select * from member where id = #{id}
+</select>
+
+
+
+</mapper>
+
+
