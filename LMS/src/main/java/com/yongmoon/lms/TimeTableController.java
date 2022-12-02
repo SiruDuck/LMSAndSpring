@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.ui.Model;
@@ -21,10 +22,11 @@ import timetable.TimeTableDAO;
 import timetable.TimeTableService;
 import timetable.TimeTableVO;
 
-@Controller
+@RestController
 public class TimeTableController {
 	@Autowired private TimeTableService service;
 	@Autowired private TimeTableDAO dao;
+	@Autowired private SqlSession sql;
 	
 	@RequestMapping("/info.tt")
 	public String myInfoView() {
@@ -122,7 +124,7 @@ public class TimeTableController {
 	
 	@RequestMapping(value = "/list.at", produces = "text/html; charset=utf-8")
 	public String list(String id) {
-		System.out.println("수강신청");
+		System.out.println(id + "수강신청");
 		HashMap<String, String>map = new HashMap<String, String>();
 		map.put("id", id);
 		return new Gson().toJson(sql.selectList("time.regist",map));
@@ -147,7 +149,7 @@ public class TimeTableController {
 	}
 	
 	@RequestMapping(value = "/table.at", produces = "text/html; charset=utf-8")
-	public String table_list(String id) {
+	public String table_list(String id, EnrolmentVO enrol_vo, TimeTableVO table_vo) {
 		System.out.println(id + "시간표");
 		return new Gson().toJson(sql.selectList("time.timeTable_list", id));
 	}
