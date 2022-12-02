@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import lecture.LectureVO;
+
 @Repository
 public class LectureDAO  {
 	@Autowired @Qualifier("ymu") private SqlSession sql;

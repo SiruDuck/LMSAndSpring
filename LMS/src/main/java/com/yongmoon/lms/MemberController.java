@@ -20,6 +20,7 @@ import equipment.EquipmentDAO;
 import equipment.EquipmentVO;
 
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
@@ -29,7 +30,7 @@ import member.MemberDAO;
 import member.MemberServiceImpl;
 import member.MemberVO;
 
-@Controller
+@RestController
 public class MemberController {
 	@Autowired private MemberServiceImpl service;
 	@Autowired private EquipmentDAO vo;
@@ -189,11 +190,11 @@ public class MemberController {
 
 	//////////////////////////// 안드로이드///////////////////////////////////////
 	
-	@ResponseBody @RequestMapping(value = "/andLogin", produces = "text/html;charset=utf-8")
+	@RequestMapping(value = "/andLogin", produces = "text/html;charset=utf-8")
 	public String login(String id, String pw){
 		
 		MemberVO vo = service.and_login(id);
-
+		System.out.println("로그인 요청들어왔음.");
 		// if( vo!= null ) {
 		// 	if (vo.getPw().equals(pw)) {
 		// 		return new Gson().toJson(vo);
@@ -231,6 +232,13 @@ public class MemberController {
 	}
 
 	
-	
-
+	//id에 대한 member데이터 가져오기.
+		@RequestMapping(value ="/appmyinfo", produces = "text/html; charset=utf-8")
+		public String appmyinfo(String id) {
+			System.out.println("안드에서 데이터 가져오는 요청들어옴.");
+			String json = new Gson().toJson(sql.selectList("member.search_id_list2",id));
+			
+			//return json;
+			return json;
+		}
 }
