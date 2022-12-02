@@ -34,5 +34,4 @@ public interface BoardService {
 	
 	List<BoardCommentVO> board_comment_list(int board_id);//댓글목록조회
 	
-	
 }

@@ -39,9 +39,9 @@
 	<select id="and_pop_list" resultType="board.BoardVO">
 	<![CDATA[
 		select id, title, content,
-		writer, writedate, readcnt, filename, filepath
+		writer, readcnt, filename, filepath
 		from (
-		select id, title, content, writer, writedate, readcnt, filename, filepath, dense_rank()
+		select id, title, content, writer, readcnt, filename, filepath, dense_rank()
 		over(order by readcnt desc) as rank from board
 		)
 		where rank < 4

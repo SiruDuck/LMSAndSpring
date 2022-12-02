@@ -25,7 +25,6 @@ public interface ScoreService {
 	public ScoreVO selectOne(String id, int num);					//교수 페이지 한 학생 조회
 	public List<ScoreVO> avg_teacher_subject(String id);					//교수 페이지 성적 평균 조회
 	
-	public ScoreVO avg_teacher_and(String id);						//안드로이드 교수 페이지 한 학생 조회
 	
 	//성적입력
 	public int data_check(String id, int num);						//성적 입력시 데이터 중복확인

@@ -160,10 +160,6 @@ public class ScoreDAO implements ScoreService{
 	public List<ScoreVO> avg_teacher_subject(String id) {
 		return sql.selectList("score.avg_teacher_subject",id);
 	}
-	@Override
-	public ScoreVO avg_teacher_and(String id) {
-		return sql.selectOne("score.avg_teacher_and",id);
-	}
 
 	
 

@@ -1,11 +1,9 @@
 package notice;
 
-import java.sql.Date;
-
 public class NoticeVO {
 	private int  readcnt, id;
 	private String title, content, writer,filename,	filepath;
-	private Date writedate;
+	private String writedate;
 	public int getReadcnt() {
 		return readcnt;
 	}
@@ -48,12 +46,20 @@ public class NoticeVO {
 	public void setFilepath(String filepath) {
 		this.filepath = filepath;
 	}
-	public Date getWritedate() {
+	public String getWritedate() {
 		return writedate;
 	}
-	public void setWritedate(Date writedate) {
+	public void setWritedate(String writedate) {
 		this.writedate = writedate;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
