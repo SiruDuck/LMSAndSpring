@@ -231,6 +231,12 @@ public class MemberController {
 	}
 
 	
-	
+	@RequestMapping(value="/appmyinfo")
+	public String appmyinfo(Model model) {
+		
+		
+		
+		return "member/appmyinfo";
+	}
 
 }
