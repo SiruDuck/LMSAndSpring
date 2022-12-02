@@ -128,6 +128,9 @@ select * from member where id = #{id}
 </select>
 
 
+<select id="search_id_list" resultType='member.MemberVO'>
+select * from member where id = #{id}
+</select>
 
 </mapper>
 

@@ -231,12 +231,12 @@ public class MemberController {
 	}
 
 	
-	@RequestMapping(value="/appmyinfo")
-	public String appmyinfo(Model model) {
-		
-		
-		
-		return "member/appmyinfo";
-	}
-
+	//id에 대한 member데이터 가져오기.
+		@ResponseBody @RequestMapping(value ="/appmyinfo", produces = "text/html; charset=utf-8")
+		public String appmyinfo(Model model, String id) {
+			System.out.println("안드에서 데이터 가져오는 요청들어옴.");
+			String json = new Gson().toJson(sql.selectList("member.search_id_list",id));
+			
+			return json;
+		}
 }
