@@ -49,6 +49,28 @@ public class BoardDAO implements BoardService{
 		// TODO Auto-generated method stub
 		return sql.selectList("board.and_comment_list", board_id);
 	}
+
+	@Override
+	public int board_comment_insert(BoardCommentVO vo) {
+		// TODO Auto-generated method stub
+		return sql.insert("board.comment_insert", vo);
+	}
+
+	@Override
+	public int board_comment_delete(String board_id) {
+		// TODO Auto-generated method stub
+		return sql.delete("board.comment_delete", board_id);
+	}
+
+	@Override
+	public int board_comment_update(BoardCommentVO vo) {
+		// TODO Auto-generated method stub
+		return sql.update("board.comment_update", vo);
+	}
+
+	
+
+
 	
 	
 }
