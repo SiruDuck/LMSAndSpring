@@ -239,6 +239,6 @@ public class MemberController {
 			String json = new Gson().toJson(sql.selectList("member.search_id_list2",id));
 			
 			//return json;
-			return "연결";
+			return json;
 		}
 }
