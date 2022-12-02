@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.Gson;
 
 import lecture.LectureDAO;
-import lecture.LecturePageVO;
 import lecture.LectureVO;
 import member.MemberVO;
 
