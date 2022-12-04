@@ -95,7 +95,7 @@
 	</insert>
 	
 	<delete id="comment_delete">
-		delete from board_comment where board_id = #{board_id, jdbcType=VARCHAR}
+		delete from board_comment where id = #{id}
 	</delete>
 	
 	<update id="comment_update">

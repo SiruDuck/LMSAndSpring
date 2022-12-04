@@ -56,9 +56,9 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public int board_comment_delete(String board_id) {
+	public int board_comment_delete(String id) {
 		// TODO Auto-generated method stub
-		return dao.board_comment_delete(board_id);
+		return dao.board_comment_delete(id);
 	}
 
 	@Override

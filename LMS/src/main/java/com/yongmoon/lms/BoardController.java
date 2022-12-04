@@ -109,10 +109,10 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/andcomment.delete", produces = "text/html;charset=utf-8") 
-	public String and_comment_delete(String board_id) {
+	public String and_comment_delete(String id) {
 		//BoardCommentVO vo1 = new Gson().fromJson(vo, BoardCommentVO.class);
-		System.out.println(board_id);
-		int result = service.board_comment_delete(board_id);
+		System.out.println(id);
+		int result = service.board_comment_delete(id);
 		return result + "";
 	}
 	

@@ -87,8 +87,23 @@
 		order by id
 		desc
 	</select>
-
-
+	
+	<insert id="comment_insert">
+		insert into board_comment (content, writer, board_id)
+		values ( #{content, jdbcType=VARCHAR}, #{writer, jdbcType=VARCHAR}, #{board_id,
+		jdbcType=VARCHAR})
+	</insert>
+	
+	<delete id="comment_delete">
+		delete from board_comment where id = #{id}
+	</delete>
+	
+	<update id="comment_update">
+		update board_comment set content = #{content}
+		where id
+		= #{id}
+	</update>
+	
 </mapper>
 
 
