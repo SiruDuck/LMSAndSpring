@@ -55,8 +55,8 @@ select count(id) from member where id = #{id}
  
  <!-- 비품 리스트 -->
  <select id='equipment_list' resultType='equipment.EquipmentVO'>
-	select * 
-	from equipment
+	select to_char(buy_day,'yyyy/mm/dd') buy_day ,  e.* 
+	from equipment e
 </select>
  
   <!-- 비품 이름으로 검색 -->
