@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="lecture">
+
+<select id="list" resultType="lecture.LectureVO">
+	select * from lectures
+    where LECTURE_TITLE like '%'|| nvl(#{lecture_title,jdbcType=VARCHAR},'')||'%'
+    and SORTATION like '%'|| nvl(#{sortation,jdbcType=VARCHAR},'')||'%'
+    and LECTURE_DAY like '%'|| nvl(#{lecture_day,jdbcType=VARCHAR},'')||'%'
+    and LECTURE_TIME like '%'||nvl( #{lecture_time,jdbcType=VARCHAR},'')||'%'
+	order by lecture_num
+</select>
+
+<select id="teacher_lec" resultType="lecture.LectureVO">
+	select * from lectures
+	where teacher_name = #{teacher_name}
+</select>
+
+<select id="student_lec" resultType="lecture.LectureVO">
+SELECT *
+FROM lectures l INNER JOIN subjectscore c
+on c.lecture_num = l.lecture_num
+inner JOIN member m
+on m.id  = c.id 
+where m.id=#{id}
+</select>
+
+<select id="teacher_stu" resultType="lecture.LectureVO">
+select m.id, m.name, m.gender, m.grade, m.department_name ,m.phone 
+from lectures l inner join subjectscore c
+on c.lecture_num = l.lecture_num
+inner join member m
+on m.id = c.id
+where l.lecture_num = #{lecture_num}
+</select>
+
+
+<select id="total" resultType="integer">
+	select count(lecture_num) from lectures <include refid="search_where"/>
+</select>
+
+<select id="info" resultType="lecture.LectureVO">
+	select * from lectures where lecture_num = #{lecture_num}
+</select>
+
+<select id="insert">
+	insert into lectures(lecture_num, lecture_title, teacher_name, semester, sortation, lecture_room, lecture_time, enrolment, reception_status, capacity, midex, finalex, subjectcredit, state, book, lecture_year, lecture_day, host)
+				values(lec_seq.nextval, #{lecture_title, jdbcType=VARCHAR}, #{teacher_name, jdbcType=VARCHAR}, #{semester, jdbcType=VARCHAR}, #{sortation, jdbcType=VARCHAR}, #{lecture_room, jdbcType=VARCHAR}
+		, #{lecture_time, jdbcType=VARCHAR}, #{enrolment, jdbcType=VARCHAR}, #{reception_status, jdbcType=VARCHAR}, #{capacity, jdbcType=VARCHAR}
+		, #{midex, jdbcType=VARCHAR}, #{finalex, jdbcType=VARCHAR}, #{subjectcredit, jdbcType=VARCHAR}, #{state, jdbcType=VARCHAR}
+		,#{book, jdbcType=VARCHAR},#{lecture_year, jdbcType=VARCHAR},#{lecture_day, jdbcType=VARCHAR},#{host, jdbcType=VARCHAR})
+</select>
+
+<update id="update">
+	update LECTURES
+	set lecture_num = #{lecture_num},
+	
+	    lecture_title = #{lecture_title, jdbcType=VARCHAR}, 
+	    
+	    teacher_name = #{teacher_name, jdbcType=VARCHAR}, 
+	    
+		semester = #{semester, jdbcType=VARCHAR}, 
+		
+		sortation = #{sortation, jdbcType=VARCHAR}, 
+		
+		lecture_room = #{lecture_room, jdbcType=VARCHAR}, 
+		
+		lecture_time = #{lecture_time, jdbcType=VARCHAR},
+		
+		enrolment = #{enrolment, jdbcType=VARCHAR}, 
+		
+		reception_status = #{reception_status, jdbcType=VARCHAR}, 
+		
+		capacity = #{capacity, jdbcType=VARCHAR},
+		 
+		midex = #{midex, jdbcType=VARCHAR}, 
+		
+		finalex = #{finalex, jdbcType=VARCHAR}, 
+		
+		subjectcredit = #{subjectcredit, jdbcType=VARCHAR}, 
+		
+		state = #{state, jdbcType=VARCHAR}, 
+		
+		book = #{book, jdbcType=VARCHAR}, 
+		
+		lecture_year = #{lecture_year, jdbcType=VARCHAR}, 
+		
+		lecture_day = #{lecture_day, jdbcType=VARCHAR}, 
+		
+		host = #{host, jdbcType=VARCHAR}
+		
+	where lecture_num = #{lecture_num}
+</update>
+
+<delete id="delete">
+	delete from lectures where lecture_num = #{lecture_num}
+</delete>
+
+<sql id='search_where'>
+<choose>
+	<when test="department_name!='all'"><!-- 전체 -->
+		where sortation  like '%' || #{keyword} || '%'
+	</when>
+	<when test="search=='s2'"><!-- 전공필수 -->
+		where sortation   like '%전공필수%'
+	</when>
+	<when test="search=='s3'"><!-- 전공선택 -->
+		where sortation like '%전공선택%'
+	</when>
+	<when test="search=='s4'"><!-- 교양 -->
+		where sortation like '%교양%'
+	</when>
+	
+	
+</choose>
+</sql>
+
+
+
+</mapper>

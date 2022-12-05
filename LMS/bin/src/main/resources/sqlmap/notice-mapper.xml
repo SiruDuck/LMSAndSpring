@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="notice">
+
+<!-- 	<select id="list" resultType="notice.NoticeVO">
+		select * from
+		(select rownum no, n.*, (select name from member m
+		where m.id=n.writer) name
+		from (select * from notice
+		<include refid="search_where" />
+		) n
+		order by no desc)
+		where no between #{beginList} and #{endList}
+	</select>
+
+	<select id="totalList" resultType="integer">
+		select count(*) from notice
+		<include refid="search_where" />
+	</select>
+
+	<select id="info" resultType="notice.NoticeVO">
+		select *
+		from notice
+		where id =
+		#{id}
+	</select>
+
+	<select id="insert">
+		insert into notice(title, content, writer, filename,
+		filepath)
+		values (#{title, jdbcType=VARCHAR}, #{content,
+		jdbcType=VARCHAR},
+		#{writer, jdbcType=VARCHAR}, #{filename,
+		jdbcType=VARCHAR},
+		#{filepath, jdbcType=VARCHAR})
+	</select>
+
+	<select id="delete">
+		delete from notice where id = #{id}
+	</select>
+
+
+	<select id="update">
+		update notice set title = #{title,
+		jdbcType=VARCHAR},content = #{content,
+		jdbcType=VARCHAR},
+		filename =
+		#{filename, jdbcType=VARCHAR}, filepath = #{filepath,
+		jdbcType=VARCHAR}
+		where id = #{id}
+	</select>
+
+
+
+
+	<sql id='search_where'>
+		<if test=" search=='title' or search=='content' ">
+			where ${search} like '%'|| #{keyword} || '%'
+		</if>
+		<if test=' search=="writer" '>
+			where writer in ( select id from member
+			where name like
+			'%'|| #{keyword} || '%' )
+		</if>
+		<if test=' search=="all" '>
+			where title like '%'|| #{keyword} || '%'
+			or content like
+			'%'|| #{keyword} || '%'
+		</if>
+
+	</sql> -->
+
+	<update id="read">
+		update notice set readcnt = readcnt + 1 where id =
+		#{id}
+	</update>
+	
+	<select id="and_list" resultType="notice.NoticeVO">
+		select *
+		from notice
+		order by writedate desc
+	</select>
+	
+	<delete id="delete">
+		delete from notice where id = #{id}
+	</delete>
+	
+	
+	
+	<update id="update">
+		update notice set title = #{title,
+		jdbcType=VARCHAR},content = #{content,
+		jdbcType=VARCHAR},
+		filename =
+		#{filename, jdbcType=VARCHAR}, filepath = #{filepath,
+		jdbcType=VARCHAR}
+		where id = #{id}
+	</update>
+	
+	<insert id="insert">
+		insert into notice(title, content, writer, filename,
+		filepath)
+		values (#{title, jdbcType=VARCHAR}, #{content,
+		jdbcType=VARCHAR},
+		#{writer, jdbcType=VARCHAR}, #{filename,
+		jdbcType=VARCHAR},
+		#{filepath, jdbcType=VARCHAR})
+	</insert>
+	
+</mapper>

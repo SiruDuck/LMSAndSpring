@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="score">
+
+	<!-- 학생페이지 전체 평균 조회 -->
+	<select id="calc_avg" resultType="score.ScoreVO">
+		select sum(subjectcredit)
+		sum_credit, sum(subjectcredit*semesterpoint) sum_point
+		, round(sum(subjectcredit*semesterpoint) /sum(subjectcredit), 2)
+		avgerage
+		from
+		(select l.lecture_title, l.lecture_year,
+		l.teacher_name,
+		l.subjectcredit , s.*
+		from lectures l left outer join subjectscore s on
+		l.lecture_num =s.lecture_num
+		where s.id = #{id}
+		order by
+		l.lecture_year,l.semester) l
+	</select>
+
+
+
+	<!-- 성적 삭제처리 -->
+	<delete id="delete">
+		delete from subjectscore
+		where id= #{id}
+		and lecture_num = #{num}
+	</delete>
+
+	<!-- 성적 수정처리 -->
+	<update id="update">
+		update subjectscore
+		set semesterpoint = #{semesterpoint}
+		where lecture_num = #{lecture_num}
+		and id = #{id}
+	</update>
+
+	<!-- 학생한명조회 -->
+	<select id="selectOne" resultType="score.ScoreVO">
+		select l.lecture_title, l.lecture_year, l.lecture_num,
+		l.teacher_name,
+		l.subjectcredit , s.*, m.name
+		from lectures l left outer join
+		subjectscore s on l.lecture_num =s.lecture_num
+		inner join member m on m.id = s.id
+		where s.id = #{id}
+		and l.lecture_num = #{num}
+	</select>
+
+	<!-- 성적 입력처리 -->
+	<insert id="insert">
+		insert into subjectscore (lecture_num, id,
+		semesterpoint)
+		values (#{lecture_num}, #{id}, #{semesterpoint})
+	</insert>
+
+	<!--성적입력시 아이디 중복체크 -->
+	<select id="id_check" resultType="integer">
+		select count(id)
+		from member
+		where id = #{id}
+		and info_cd = 1
+	</select>
+
+	<!-- 성적입력시 데이터 중복체크 -->
+	<select id="data_check" resultType="integer">
+		select count(s.id)
+		from
+		lectures l left outer join subjectscore s on l.lecture_num =
+		s.lecture_num
+		where s.id = #{id}
+		and l.lecture_num = #{num}
+	</select>
+
+
+	<!-- 특정 년도별 조회 -->
+	<select id="lectureYearOne" resultType="score.ScoreVO">
+		select
+		l.lecture_title,l.lecture_year, l.subjectcredit,
+		l.teacher_name , s.*
+		from lectures l left outer join subjectscore s on l.lecture_num
+		=s.lecture_num
+		where l.lecture_year = #{year}
+		and s.id = #{id}
+		order by
+		l.lecture_year,l.semester
+	</select>
+
+
+	<!-- 교수화면에서 년도 조회 -->
+	<select id="teacher_lectureYear" resultType="score.ScoreVO">
+		select DISTINCT
+		l.lecture_year
+		from lectures l inner join subjectscore s on
+		l.lecture_num =s.lecture_num
+		left outer join member m on m.id = s.id
+		where l.host = #{id}
+	</select>
+	<!--학생화면 년도 조회 -->
+	<select id="lectureYear" resultType="score.ScoreVO">
+		select Distinct
+		l.lecture_year
+		from subjectscore s left outer join lectures l on l.lecture_num =
+		s.lecture_num
+		where s.id = #{id}
+		order by 1
+	</select>
+
+	<!-- 특정과목 조회 -->
+	<select id="lectureOne" resultType="score.ScoreVO">
+		select l.lecture_title,
+		l.lecture_year, l.subjectcredit,
+		l.teacher_name , s.*
+		from lectures l
+		left outer join subjectscore s on l.lecture_num =s.lecture_num
+		where
+		l.lecture_num = #{num}
+		and s.id = #{id}
+		order by
+		l.lecture_year,l.semester
+	</select>
+
+	<!-- 학생화면에서 과목명 조회 -->
+	<select id="teacher_lectures" resultType="score.LectureVO">
+		select Distinct l.lecture_title
+		from lectures l left outer join subjectscore
+		s on l.lecture_num =s.lecture_num
+		where s.host = #{id}
+	</select>
+
+
+	<!-- 학생화면에서 과목명 조회 -->
+	<select id="lectures" resultType="score.LectureVO">
+		select Distinct l.lecture_title, l.lecture_num, s.id
+		from lectures l left
+		outer join subjectscore s on l.lecture_num =s.lecture_num
+		where s.id =
+		#{id}
+	</select>
+
+	<!-- 학생화면에서 과목명 조회 -->
+	<select id="lookup_teacher_lectures"
+		resultType="score.LectureVO">
+		select Distinct l.lecture_num, l.lecture_title
+		from lectures l left outer
+		join subjectscore s on l.lecture_num =s.lecture_num
+		where l.host =
+		#{id}
+	</select>
+
+
+	<!-- 교수화면에서 성적입력할 학생 조회 -->
+	<select id="search_student" resultType="score.ScoreVO">
+
+		<!--아직 테이블 완성 안됨 -->
+		<!-- select DISTINCT m.name, m.id from lectures l inner join subjectscore 
+			s on l.lecture_num =s.lecture_num left outer join member m on m.id = s.id 
+			where l.host = #{id} -->
+
+		<!-- 학생 전체조회 -->
+		select id, name, info_name
+		from member
+		where info_cd = 1
+	</select>
+
+	<!-- 리스트 조회 교수 화면(이름& 년도) -->
+	<select id="search_name_year" resultType="score.ScoreVO">
+		select l.lecture_title,
+		l.lecture_year,
+		l.teacher_name, l.subjectcredit , s.*, m.name
+		from
+		lectures l left outer join subjectscore s on l.lecture_num
+		=s.lecture_num
+		left outer join member m on m.id = s.id
+		where l.host = #{id}
+		and m.name like
+		'%'||#{student}||'%'
+		and l.lecture_year = #{year}
+		order by l.lecture_year,l.semester, m.id
+	</select>
+
+	<!-- 리스트 조회 교수 화면(이름) -->
+	<select id="search_name" resultType="score.ScoreVO">
+		select l.lecture_title,
+		l.lecture_year,
+		l.teacher_name, l.subjectcredit , s.*, m.name
+		from
+		lectures l left outer join subjectscore s on l.lecture_num
+		=s.lecture_num
+		left outer join member m on m.id = s.id
+		where l.host = #{id}
+		and m.name like
+		'%'||#{student}||'%'
+		order by l.lecture_year,l.semester, m.id
+	</select>
+
+	<!-- 리스트 조회 교수 화면(년도) -->
+	<select id="teacher_year_student" resultType="score.ScoreVO">
+		select
+		l.lecture_title, l.lecture_year,
+		l.teacher_name, l.subjectcredit , s.*,
+		m.name
+		from lectures l left outer join subjectscore s on l.lecture_num
+		=s.lecture_num
+		left outer join member m on m.id = s.id
+		where l.host = #{id}
+		and
+		l.lecture_year = #{year}
+		order by l.lecture_year,l.semester, m.id
+	</select>
+
+	<!-- 리스트 조회 교수 화면(이름 && 년도) -->
+	<select id="lecture_title_lecture" resultType="score.ScoreVO">
+		select
+		l.lecture_title, l.lecture_year,
+		l.teacher_name, l.subjectcredit , s.*,
+		m.name
+		from lectures l left outer join subjectscore s on l.lecture_num
+		=s.lecture_num
+		left outer join member m on m.id = s.id
+		where l.host = #{id}
+		and m.name like
+		'%'||#{student}||'%'
+		and l.year = #{year}
+		order by l.lecture_year,l.semester, m.id
+	</select>
+
+	<!-- 리스트 조회 교수 화면 -->
+	<select id="list_teacher" resultType="score.ScoreVO">
+		select l.lecture_title,
+		l.lecture_year,
+		l.teacher_name, l.subjectcredit , s.*, m.name,
+		l.semester
+		from lectures l inner join subjectscore s on l.lecture_num
+		=s.lecture_num
+		left outer join member m on m.id = s.id
+		where l.host = #{id}
+		order by
+		l.lecture_year,l.semester, m.id
+	</select>
+
+
+
+	<!-- 안드로이드화면에서 성적 평균 조회 -->
+	<select id="avg_teacher_and" resultType="score.ScoreVO">
+		select round(AVG(semesterpoint),1) avg_subject
+		from lectures l left outer
+		join subjectscore s on l.lecture_num =s.lecture_num
+		left outer join member m on m.id = s.id
+		where l.host = #{id}
+	</select>
+
+
+	<!-- 교수화면에서 성적 평균 조회 -->
+	<select id="avg_teacher_subject" resultType="score.ScoreVO">
+		select
+		l.lecture_num, l.lecture_title, round(AVG(semesterpoint),1)
+		avg_subject
+		from lectures l left outer join subjectscore s on
+		l.lecture_num =s.lecture_num
+		left outer join member m on m.id = s.id
+		where l.host = #{id}
+		group by
+		l.lecture_num , l.lecture_title
+
+	</select>
+
+	<!-- 리스트조회 -->
+	<select id="list" resultType="score.ScoreVO">
+		select l.lecture_title,
+		l.lecture_year,l.semester,
+		l.teacher_name, l.subjectcredit , s.*
+		from
+		lectures l left outer join subjectscore s on l.lecture_num
+		=s.lecture_num
+		where s.id = #{id}
+		order by l.lecture_year,l.semester
+	</select>
+
+</mapper>
