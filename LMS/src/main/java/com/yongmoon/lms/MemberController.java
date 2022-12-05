@@ -166,21 +166,21 @@ public class MemberController {
 	
 	
 	//비품 수정 요청
-	@RequestMapping("/eqmodify")
-	public String eqmodify(@RequestParam(name="mequipment") String equipment, @RequestParam(name="mequipment_num") String equipment_num
-			, @RequestParam(name="msituation") String situation, String origineq, 
-			 @RequestParam(name="mprice") String price ,Model model ,@RequestParam(name="mbuy_day") String buy_day ) {
-		EquipmentVO eqvo = new EquipmentVO();
-		eqvo.setEquipment(equipment);
-		eqvo.setEquipment_num(Integer.parseInt(equipment_num));
-		eqvo.setSituation(situation);
-		eqvo.setBuy_day(Date.valueOf(buy_day));
-		eqvo.setPrice(Integer.parseInt(price));
-		vo.eqmodify(eqvo);
-		
-		return "redirect:eqlist";
-	}
-	
+//	@RequestMapping("/eqmodify")
+//	public String eqmodify(@RequestParam(name="mequipment") String equipment, @RequestParam(name="mequipment_num") String equipment_num
+//			, @RequestParam(name="msituation") String situation, String origineq, 
+//			 @RequestParam(name="mprice") String price ,Model model ,@RequestParam(name="mbuy_day") String buy_day ) {
+//		EquipmentVO eqvo = new EquipmentVO();
+//		eqvo.setEquipment(equipment);
+//		eqvo.setEquipment_num(Integer.parseInt(equipment_num));
+//		eqvo.setSituation(situation);
+//		eqvo.setBuy_day(Date.valueOf(buy_day));
+//		eqvo.setPrice(Integer.parseInt(price));
+//		vo.eqmodify(eqvo);
+//		
+//		return "redirect:eqlist";
+//	}
+//	
 	//비품 삭제
 	@RequestMapping("/eqdelete")
 	public String eqdelete(@RequestParam(name="mequipment") String equipment) {
