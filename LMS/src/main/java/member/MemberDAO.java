@@ -89,6 +89,12 @@ public class MemberDAO implements MemberService{
 		return sql.selectOne("member.andlogin", id);
 	}
 
+	@Override
+	public int member_update(MemberVO vo) {
+		// TODO Auto-generated method stub
+		return sql.update("member.UpdateMember", vo);
+	}
+
 	
 
 	

@@ -241,4 +241,24 @@ public class MemberController {
 			//return json;
 			return json;
 		}
+		
+		
+	
+		
+	@RequestMapping(value="/andupdate.myinfo", produces = "text/html; charset=utf-8")
+	public String update(String vo) {
+		System.out.println(vo);
+		
+		MemberVO vo2 = new Gson().fromJson(vo, MemberVO.class);
+		if(vo2 != null) {
+			System.out.println("vo로 다시 변환이 됨");
+			service.member_update(vo2);
+		}
+		return new Gson().toJson(vo2);
+	}
+		
+		
+		
+		
+		
 }
